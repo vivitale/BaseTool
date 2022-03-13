@@ -15,20 +15,23 @@ import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.lang.reflect.Field;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import butterknife.ButterKnife;
-import talex.zsw.basetool.util.KeyboardTool;
-import talex.zsw.basetool.util.RegTool;
-import talex.zsw.basetool.view.dialog.sweetalertdialog.SweetAlertDialog;
+import talex.zsw.basecore.util.KeyboardTool;
+import talex.zsw.basecore.util.RegTool;
+import talex.zsw.basecore.view.dialog.sweetalertdialog.SweetAlertDialog;
 import talex.zsw.sample.mvp._Presenter;
 import talex.zsw.sample.mvp._View;
 
 /**
  * 作用：基于MVP架构的Fragment基类
- * 作者：tale email:vvtale@gmail.com
+ * 作者：赵小白 email:vvtale@gmail.com  
  * 修改人：
  * 修改时间：
  * 修改备注：
@@ -70,6 +73,7 @@ public abstract class BaseMVPFragment<T extends _Presenter> extends Fragment imp
 		{
 			e.printStackTrace();
 		}
+		EventBus.getDefault().register(this);
 		return mView;
 	}
 
@@ -195,6 +199,7 @@ public abstract class BaseMVPFragment<T extends _Presenter> extends Fragment imp
 			mSweetAlertDialog = null;
 		}
 
+		EventBus.getDefault().unregister(this);
 		super.onDestroyView();
 		ViewGroup parent = (ViewGroup) mView.getParent();
 		if(null != parent)
@@ -465,4 +470,12 @@ public abstract class BaseMVPFragment<T extends _Presenter> extends Fragment imp
 	// --------------- Fragment是否可见监听事件 --------------
 	public boolean isVisible;
 	public boolean isPrepared;
+
+	// --------------- EventBus --------------
+
+	@Subscribe public void onEvent(NotingEvent event)
+	{
+	}
+
+	private class NotingEvent{}
 }

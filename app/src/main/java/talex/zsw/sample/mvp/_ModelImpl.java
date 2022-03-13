@@ -5,13 +5,13 @@ import com.lzy.okgo.model.Response;
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
-import talex.zsw.basetool.util.JsonTool;
-import talex.zsw.basetool.util.LogTool;
+import talex.zsw.basecore.util.JsonTool;
+import talex.zsw.basecore.util.LogTool;
 import talex.zsw.sample.entitys.BaseResponse;
 
 /**
  * 作用：通用M层
- * 作者：tale email:vvtale@gmail.com
+ * 作者：赵小白 email:vvtale@gmail.com  
  * 修改人：
  * 修改时间：
  * 修改备注：

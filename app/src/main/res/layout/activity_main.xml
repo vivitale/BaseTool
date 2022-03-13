@@ -76,7 +76,7 @@
 				android:text="text"
 				android:textSize="20sp" />
 
-			<talex.zsw.basetool.view.other.IconText
+			<talex.zsw.basecore.view.other.IconText
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:text="test"
@@ -92,9 +92,9 @@
 				app:IT_text_unselected_color="@color/yellow"
 				app:IT_unselected_background="@color/black">
 
-			</talex.zsw.basetool.view.other.IconText>
+			</talex.zsw.basecore.view.other.IconText>
 
-			<talex.zsw.basetool.view.other.IconText
+			<talex.zsw.basecore.view.other.IconText
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:text="test"
@@ -109,7 +109,7 @@
 				app:IT_text_unselected_color="@color/yellow"
 				app:IT_unselected_background="@color/black">
 
-			</talex.zsw.basetool.view.other.IconText>
+			</talex.zsw.basecore.view.other.IconText>
 
 
 		</LinearLayout>
@@ -127,7 +127,7 @@
 
 	</androidx.core.widget.NestedScrollView>
 
-	<talex.zsw.basetool.view.other.nicespinner.NiceSpinner
+	<talex.zsw.basecore.view.other.nicespinner.NiceSpinner
 		android:id="@+id/mNiceSpinner"
 		android:layout_width="150dp"
 		android:layout_height="wrap_content"

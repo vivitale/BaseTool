@@ -3,11 +3,11 @@ package talex.zsw.sample.mvp;
 import android.content.Context;
 import android.os.Handler;
 
-import talex.zsw.basetool.view.dialog.sweetalertdialog.SweetAlertDialog;
+import talex.zsw.basecore.view.dialog.sweetalertdialog.SweetAlertDialog;
 
 /**
  * 作用：基于MVP架构的View 视图基类
- * 作者：tale email:vvtale@gmail.com
+ * 作者：赵小白 email:vvtale@gmail.com  
  * 修改人：
  * 修改时间：
  * 修改备注：

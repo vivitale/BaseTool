@@ -7,20 +7,25 @@ import android.view.ViewGroup
 import butterknife.OnClick
 import com.bumptech.glide.Glide
 import com.github.florent37.viewanimator.ViewAnimator
+import io.reactivex.Observer
 import kotlinx.android.synthetic.main.activity_main.*
-import talex.zsw.basetool.model.ActionItem
-import talex.zsw.basetool.util.*
-import talex.zsw.basetool.view.dialog.rxdialog.RxDialogChooseImage
-import talex.zsw.basetool.view.dialog.rxdialog.RxDialogList
-import talex.zsw.basetool.view.dialog.rxdialog.RxDialogScaleView
-import talex.zsw.basetool.view.other.slidedatetimepicker.SlideDateTimeListener
-import talex.zsw.basetool.view.other.slidedatetimepicker.SlideDateTimePicker
-import talex.zsw.basetool.view.popupwindow.PopLayout
-import talex.zsw.basetool.view.popupwindow.PopListView
-import talex.zsw.basetool.view.recyleview.SampleFooter
-import talex.zsw.basetool.view.recyleview.SampleHeader
+import talex.zsw.basecore.model.ActionItem
+import talex.zsw.basecore.util.BroadcastTool
+import talex.zsw.basecore.util.LogTool
+import talex.zsw.basecore.util.PhotoTool
+import talex.zsw.basecore.util.TimeTool
+import talex.zsw.basecore.util.glide.GlideTool
+import talex.zsw.basecore.view.dialog.rxdialog.RxDialogChooseImage
+import talex.zsw.basecore.view.dialog.rxdialog.RxDialogList
+import talex.zsw.basecore.view.other.slidedatetimepicker.SlideDateTimeListener
+import talex.zsw.basecore.view.other.slidedatetimepicker.SlideDateTimePicker
+import talex.zsw.basecore.view.popupwindow.PopLayout
+import talex.zsw.basecore.view.popupwindow.PopListView
+import talex.zsw.basecore.view.recyleview.SampleFooter
+import talex.zsw.basecore.view.recyleview.SampleHeader
 import talex.zsw.sample.R
 import talex.zsw.sample.base.BaseMVPActivity
+import talex.zsw.sample.module.common.ui.WebActivity
 import talex.zsw.sample.module.main.adapter.TestAdapter
 import talex.zsw.sample.module.main.contract.MainContract
 import talex.zsw.sample.module.main.presenter.MainPresenter
@@ -50,9 +55,10 @@ class MainActivity : BaseMVPActivity<MainContract.Presenter>(), MainContract.Vie
         mPresenter = MainPresenter(this)
     }
 
-    val url = "http://img4.imgtn.bdimg.com/it/u=3399090562,3531159538&fm=26&gp=0.jpg"
     override fun initData()
     {
+        val url = "http://img4.imgtn.bdimg.com/it/u=3399090562,3531159538&fm=26&gp=0.jpg"
+        GlideTool.loadImgRoundedCornersLeft(mImageView, url, 20)
 
         val list: ArrayList<String> = arrayListOf()
         list.add("1111")
@@ -131,8 +137,13 @@ class MainActivity : BaseMVPActivity<MainContract.Presenter>(), MainContract.Vie
             }
             R.id.mBtn4 ->
             {
-                // showRxChooseImg()
-                showRxScaleImg()
+                //                val body = BaseModel()
+                //                body.key = "26802ee608152"
+                //                body.city = "杭州"
+                //                mPresenter.getData(HttpDto(Constant.WEATHER, body).setType(HttpDto.GET))
+                //                uploadLog()
+                showRxChooseImg()
+                start(WebActivity::class.java)
             }
             R.id.mBtn5 ->
             {
@@ -177,20 +188,6 @@ class MainActivity : BaseMVPActivity<MainContract.Presenter>(), MainContract.Vie
     }
 
     // --------------- 选择图片 ---------------
-    private var rxScaleImg: RxDialogScaleView? = null
-
-    private fun showRxScaleImg()
-    {
-        rxScaleImg
-                ?: let {
-                    rxScaleImg = RxDialogScaleView(this@MainActivity,url)
-                    rxScaleImg?.setCancelListener {
-                        DialogTool.endDialog(rxScaleImg)
-                    }
-                }
-        rxScaleImg?.show()
-    }
-
     private var rxChooseImg: RxDialogChooseImage? = null
 
     private fun showRxChooseImg()

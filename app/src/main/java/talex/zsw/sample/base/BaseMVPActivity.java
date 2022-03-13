@@ -14,22 +14,25 @@ import com.google.android.material.snackbar.Snackbar;
 import com.lzy.okgo.OkGo;
 import com.umeng.analytics.MobclickAgent;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.lang.reflect.Field;
 
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.ButterKnife;
-import talex.zsw.basetool.BuildConfig;
-import talex.zsw.basetool.util.ActivityTool;
-import talex.zsw.basetool.util.KeyboardTool;
-import talex.zsw.basetool.util.RegTool;
-import talex.zsw.basetool.view.dialog.sweetalertdialog.SweetAlertDialog;
+import talex.zsw.basecore.BuildConfig;
+import talex.zsw.basecore.util.ActivityTool;
+import talex.zsw.basecore.util.KeyboardTool;
+import talex.zsw.basecore.util.RegTool;
+import talex.zsw.basecore.view.dialog.sweetalertdialog.SweetAlertDialog;
 import talex.zsw.sample.R;
 import talex.zsw.sample.mvp._Presenter;
 import talex.zsw.sample.mvp._View;
 
 /**
  * 作用：基于MVP架构的Activity基类
- * 作者：tale email:vvtale@gmail.com
+ * 作者：赵小白 email:vvtale@gmail.com  
  * 修改人：
  * 修改时间：
  * 修改备注：
@@ -79,6 +82,7 @@ public abstract class BaseMVPActivity<T extends _Presenter> extends AppCompatAct
 			e.printStackTrace();
 		}
 		activityState = 0;
+		EventBus.getDefault().register(this);
 		ButterKnife.bind(this);
 	}
 
@@ -153,6 +157,7 @@ public abstract class BaseMVPActivity<T extends _Presenter> extends AppCompatAct
 	{
 		activityState = -3;
 		setContentView(R.layout.activity_empty);
+		EventBus.getDefault().unregister(this);
 		mInputMethodManager = null;
 		if(mSweetAlertDialog != null && mSweetAlertDialog.isShowing())
 		{
@@ -424,5 +429,13 @@ public abstract class BaseMVPActivity<T extends _Presenter> extends AppCompatAct
 	{
 		startActivity(intent);
 	}
+
+	@Subscribe public void onEvent(NotingEvent event)
+	{
+	}
+
+	private class NotingEvent{}
+
+
 
 }

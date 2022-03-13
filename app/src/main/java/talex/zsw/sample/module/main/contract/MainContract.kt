@@ -5,7 +5,7 @@ import talex.zsw.sample.mvp._View
 
 /**
  * 作用：首页
- * 作者：tale email:vvtale@gmail.com
+ * 作者：赵小白 email:vvtale@gmail.com  
  * 修改人：
  * 修改时间：
  * 修改备注：

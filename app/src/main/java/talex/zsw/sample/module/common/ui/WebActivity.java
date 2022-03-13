@@ -8,9 +8,10 @@ import org.jetbrains.annotations.NotNull;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import talex.zsw.basetool.util.WebViewTool;
-import talex.zsw.basetool.view.other.RxToast;
-import talex.zsw.basetool.view.other.TitleBar;
+import talex.zsw.basecore.util.WebViewTool;
+import talex.zsw.basecore.view.other.RxToast;
+import talex.zsw.basecore.view.other.TitleBar;
+import talex.zsw.basecore.view.textview.RichText;
 import talex.zsw.sample.R;
 import talex.zsw.sample.base.BaseMVPActivity;
 import talex.zsw.sample.entitys.BaseResponse;
@@ -20,7 +21,7 @@ import talex.zsw.sample.mvp._Presenter;
 
 /**
  * 作用：通用的Web页面来展示富文本等
- * 作者：tale email:vvtale@gmail.com
+ * 作者：赵小白 email:vvtale@gmail.com  
  * 修改人：
  * 修改时间：
  * 修改备注：
@@ -30,6 +31,7 @@ public class WebActivity extends BaseMVPActivity<_Presenter> implements CommonVi
 	@BindView(R.id.mTitleBar) TitleBar mTitleBar;
 	@BindView(R.id.mProgressBar) ProgressBar mProgressBar;
 	@BindView(R.id.mWebView) WebView mWebView;
+	@BindView(R.id.mRichText) RichText mRichText;
 
 	private String title, data;
 
@@ -51,7 +53,7 @@ public class WebActivity extends BaseMVPActivity<_Presenter> implements CommonVi
 	@Override protected void initData()
 	{
 		mTitleBar.setTitle(title);
-		WebViewTool.setWebData(data, mWebView, mProgressBar);
+		WebViewTool.setWebData(data, mWebView, mRichText, mProgressBar);
 	}
 
 	@Override public void bindData(@NotNull BaseResponse response)

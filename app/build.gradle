@@ -4,8 +4,15 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.jakewharton.butterknife'
 
+kapt {
+	generateStubs = true
+	arguments {
+		arg('eventBusIndex', 'talex.zsw.sample.MyEventBusIndex')
+	}
+}
+
 android {
-	compileSdkVersion 32
+	compileSdkVersion 30
 	buildToolsVersion "30.0.3"
 	compileOptions {
 		sourceCompatibility JavaVersion.VERSION_1_8
@@ -53,10 +60,6 @@ android {
 			outputFileName = "CoreSample_${defaultConfig.versionName}_" + getDate() + ".apk"
 		}
 	}
-
-	configurations.all{
-		resolutionStrategy.force 'androidx.appcompat:appcompat:1.4.1'
-	}
 }
 
 static def getDate()
@@ -71,23 +74,30 @@ repositories {
 
 dependencies {
 	implementation fileTree(dir: 'libs', include: ['*.jar'])
-	implementation project(':basetool')
-	implementation 'androidx.core:core-ktx:1.7.0'
-	implementation 'androidx.appcompat:appcompat:1.4.1'
+	implementation project(':basecorex')
+	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+	// 已经整合进入BaseCore中的库
+	implementation 'androidx.core:core-ktx:1.3.2'
 	implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-	implementation 'androidx.legacy:legacy-support-v13:1.0.0'
-	implementation 'com.android.support:multidex:1.0.3'
-	implementation 'androidx.startup:startup-runtime:1.1.1'
-	implementation 'androidx.navigation:navigation-runtime-ktx:2.3.5'
-	implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+	implementation 'androidx.appcompat:appcompat:1.3.0'
 	implementation 'androidx.recyclerview:recyclerview:1.2.1'
-	implementation 'androidx.fragment:fragment-ktx:1.3.6'
-	implementation 'com.google.android.material:material:1.5.0'
+	implementation 'androidx.legacy:legacy-support-v13:1.0.0'
+	implementation 'androidx.fragment:fragment-ktx:1.3.5'
 	implementation 'androidx.cardview:cardview:1.0.0'
 	implementation 'androidx.percentlayout:percentlayout:1.0.0'
+	implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+	implementation 'com.google.android.material:material:1.3.0'
+	// RxJava
+	implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
+	implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+	// json相关
+	implementation 'com.google.code.gson:gson:2.9.0'
+	// Knife
+	implementation 'com.jakewharton:butterknife:10.2.1'
+	annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
+	// EventBus
+	implementation 'org.greenrobot:eventbus:3.2.0'
 
-	implementation'com.jakewharton:butterknife:10.2.1'
-	annotationProcessor'com.jakewharton:butterknife-compiler:10.2.1'
 	kapt 'com.jakewharton:butterknife-compiler:10.2.1' // *** 在app中添加 *** Kotlin 的butterknife注解处理器
 	kapt 'org.greenrobot:eventbus-annotation-processor:3.0.1' // *** 在app中添加 ***
 	compileOnly 'org.glassfish:javax.annotation:10.0-b28' // *** 在app中添加 ***
@@ -114,9 +124,6 @@ dependencies {
 	implementation 'com.github.bumptech.glide:okhttp3-integration:4.12.0'
 	// RecyclerView适配器工具
 	implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.6'
-	// RxJava
-	implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
-	implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
 }
 
 allprojects {

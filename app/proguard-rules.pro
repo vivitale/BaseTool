@@ -1,6 +1,6 @@
 #-------------------------------------------定制化区域----------------------------------------------
 #--------------------------------- 0.BASE ---------------------------------
--keep class talex.zsw.basetool.** {*;}
+-keep class talex.zsw.basecore.** {*;}
 -dontwarn talex.zsw.basecore.**
 -keep class talex.zsw.sample.database.** {*;}
 -dontwarn talex.zsw.sample.database.**

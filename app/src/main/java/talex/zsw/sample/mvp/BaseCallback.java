@@ -12,12 +12,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.Response;
-import talex.zsw.basetool.util.LogTool;
+import talex.zsw.basecore.util.LogTool;
 import talex.zsw.sample.entitys.BaseResponse;
 
 /**
  * 作用：通用请求返回
- * 作者：tale email:vvtale@gmail.com
+ * 作者：赵小白 email:vvtale@gmail.com  
  * 修改人：
  * 修改时间：
  * 修改备注：

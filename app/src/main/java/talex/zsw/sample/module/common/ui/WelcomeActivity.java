@@ -13,10 +13,10 @@ import java.util.List;
 import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import talex.zsw.basetool.util.PermissionConstants;
-import talex.zsw.basetool.util.PermissionHelper;
-import talex.zsw.basetool.util.PermissionTool;
-import talex.zsw.basetool.view.other.PageControlView;
+import talex.zsw.basecore.util.PermissionConstants;
+import talex.zsw.basecore.util.PermissionHelper;
+import talex.zsw.basecore.util.PermissionTool;
+import talex.zsw.basecore.view.other.PageControlView;
 import talex.zsw.sample.R;
 import talex.zsw.sample.base.BaseMVPActivity;
 import talex.zsw.sample.entitys.BaseResponse;
@@ -27,7 +27,7 @@ import talex.zsw.sample.mvp._Presenter;
 
 /**
  * 作用：欢迎页
- * 作者：tale email:vvtale@gmail.com
+ * 作者：赵小白 email:vvtale@gmail.com  
  * 修改人：
  * 修改时间：
  * 修改备注：

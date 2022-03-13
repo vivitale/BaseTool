@@ -9,13 +9,13 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import talex.zsw.basetool.util.JsonTool;
-import talex.zsw.basetool.util.LogTool;
-import talex.zsw.basetool.util.RegTool;
+import talex.zsw.basecore.util.JsonTool;
+import talex.zsw.basecore.util.LogTool;
+import talex.zsw.basecore.util.RegTool;
 
 /**
  * 作用：网络请求参数状态
- * 作者：tale email:vvtale@gmail.com
+ * 作者：赵小白 email:vvtale@gmail.com  
  * 修改人：
  * 修改时间：
  * 修改备注：

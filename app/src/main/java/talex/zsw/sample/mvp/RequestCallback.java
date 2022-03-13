@@ -4,7 +4,7 @@ import io.reactivex.Observable;
 
 /**
  * 作用：接口请求相关通用类
- * 作者：tale email:vvtale@gmail.com
+ * 作者：赵小白 email:vvtale@gmail.com  
  * 修改人：
  * 修改时间：
  * 修改备注：

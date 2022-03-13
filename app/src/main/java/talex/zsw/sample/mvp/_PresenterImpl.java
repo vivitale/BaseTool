@@ -9,13 +9,13 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import talex.zsw.basetool.util.LogTool;
-import talex.zsw.basetool.view.dialog.sweetalertdialog.SweetAlertDialog;
+import talex.zsw.basecore.util.LogTool;
+import talex.zsw.basecore.view.dialog.sweetalertdialog.SweetAlertDialog;
 import talex.zsw.sample.entitys.BaseResponse;
 
 /**
  * 作用：基于MVP架构的Presenter 代理的基类的实现
- * 作者：tale email:vvtale@gmail.com
+ * 作者：赵小白 email:vvtale@gmail.com  
  * 修改人：
  * 修改时间：
  * 修改备注：

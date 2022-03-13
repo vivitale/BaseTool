@@ -7,13 +7,16 @@ import android.os.StrictMode;
 
 import com.umeng.analytics.MobclickAgent;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import androidx.multidex.MultiDex;
 import androidx.multidex.MultiDexApplication;
-import talex.zsw.basetool.util.Tool;
+import talex.zsw.basecore.util.Tool;
 
 /**
  * 作用：基本的Application,项目的Application继承自该类,调用setImg(int res)方法来设置基本图片
- * 作者：tale email:vvtale@gmail.com
+ * 作者：赵小白 email:vvtale@gmail.com  
  * 修改人：
  * 修改时间：
  * 修改备注：
@@ -26,6 +29,7 @@ public class BaseApplication extends MultiDexApplication
 	@Override public void onCreate()
 	{
 		mApplicationContext = this;
+		EventBus.getDefault().register(mApplicationContext);
 
 		initPhotoError();
 		super.onCreate();
@@ -42,6 +46,11 @@ public class BaseApplication extends MultiDexApplication
 		{
 			builder.detectFileUriExposure();
 		}
+	}
+
+	public EventBus getBus()
+	{
+		return EventBus.getDefault();
 	}
 
 	public boolean isShow()
@@ -67,8 +76,14 @@ public class BaseApplication extends MultiDexApplication
 	public void exit()
 	{
 		Tool.uninstall();
+		EventBus.getDefault().unregister(mApplicationContext);
 		android.os.Process.killProcess(android.os.Process.myPid());
 		MobclickAgent.onKillProcess(mApplicationContext);
 	}
 
+	@Subscribe public void onEvent(NotingEvent event)
+	{
+	}
+
+	private class NotingEvent{}
 }

@@ -9,7 +9,7 @@
 
 	<include layout="@layout/include_title"/>
 
-	<talex.zsw.basetool.view.other.swipetoloadlayout.SwipeToLoadLayout
+	<talex.zsw.basecore.view.other.swipetoloadlayout.SwipeToLoadLayout
 		android:id="@+id/mSwipeToLoadLayout"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
@@ -32,7 +32,7 @@
 		<include
 			android:id="@id/swipe_load_more_footer"
 			layout="@layout/layout_classic_footer"/>
-	</talex.zsw.basetool.view.other.swipetoloadlayout.SwipeToLoadLayout>
+	</talex.zsw.basecore.view.other.swipetoloadlayout.SwipeToLoadLayout>
 
 	<TextView
 		android:layout_width="match_parent"

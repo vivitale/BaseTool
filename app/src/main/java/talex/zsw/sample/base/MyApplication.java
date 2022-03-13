@@ -15,13 +15,13 @@ import com.umeng.commonsdk.UMConfigure;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
-import talex.zsw.basetool.util.Tool;
+import talex.zsw.basecore.util.Tool;
 import talex.zsw.sample.BuildConfig;
 import talex.zsw.sample.module.main.ui.MainActivity;
 
 /**
  * 作用：使用的Application
- * 作者：tale email:vvtale@gmail.com
+ * 作者：赵小白 email:vvtale@gmail.com  
  * 修改人：
  * 修改时间：
  * 修改备注：
