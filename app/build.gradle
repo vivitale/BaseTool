@@ -1,0 +1,129 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'com.jakewharton.butterknife'
+
+android {
+	compileSdkVersion 32
+	buildToolsVersion "30.0.3"
+	compileOptions {
+		sourceCompatibility JavaVersion.VERSION_1_8
+		targetCompatibility JavaVersion.VERSION_1_8
+	}
+	defaultConfig {
+		applicationId "talex.zsw.sample"
+		minSdkVersion 19
+		targetSdkVersion 30
+		versionCode 1
+		versionName "1.0.0"
+		testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+
+		multiDexEnabled true
+	}
+	buildTypes {
+		release {
+			minifyEnabled false
+			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+		}
+	}
+
+	packagingOptions {
+		exclude 'META-INF/services/javax.annotation.processing.Processor'
+		exclude 'META-INF/LICENSE'
+		exclude 'META-INF/NOTICE'
+		exclude 'META-INF/DEPENDENCIES'
+		exclude 'META-INF/LGPL2.1'
+		exclude 'META-INF/ASL2.0'
+		exclude 'META-INF/LICENSE.txt'
+		exclude 'META-INF/NOTICE.txt'
+		exclude 'META-INF/DEPENDENCIES.txt'
+		exclude 'META-INF/license.txt'
+		exclude 'META-INF/notice.txt'
+		exclude 'META-INF/dependencies.txt'
+	}
+
+	lintOptions {
+		checkReleaseBuilds false
+		abortOnError false
+	}
+
+	applicationVariants.all { variant ->
+		variant.outputs.all { output ->
+			outputFileName = "CoreSample_${defaultConfig.versionName}_" + getDate() + ".apk"
+		}
+	}
+
+	configurations.all{
+		resolutionStrategy.force 'androidx.appcompat:appcompat:1.4.1'
+	}
+}
+
+static def getDate()
+{
+	return new Date().format("yyyyMMddHHmm")
+}
+
+repositories {
+	flatDir { dirs 'libs' }
+	maven { url "https://jitpack.io" }
+}
+
+dependencies {
+	implementation fileTree(dir: 'libs', include: ['*.jar'])
+	implementation project(':basetool')
+	implementation 'androidx.core:core-ktx:1.7.0'
+	implementation 'androidx.appcompat:appcompat:1.4.1'
+	implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+	implementation 'androidx.legacy:legacy-support-v13:1.0.0'
+	implementation 'com.android.support:multidex:1.0.3'
+	implementation 'androidx.startup:startup-runtime:1.1.1'
+	implementation 'androidx.navigation:navigation-runtime-ktx:2.3.5'
+	implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+	implementation 'androidx.recyclerview:recyclerview:1.2.1'
+	implementation 'androidx.fragment:fragment-ktx:1.3.6'
+	implementation 'com.google.android.material:material:1.5.0'
+	implementation 'androidx.cardview:cardview:1.0.0'
+	implementation 'androidx.percentlayout:percentlayout:1.0.0'
+
+	implementation'com.jakewharton:butterknife:10.2.1'
+	annotationProcessor'com.jakewharton:butterknife-compiler:10.2.1'
+	kapt 'com.jakewharton:butterknife-compiler:10.2.1' // *** 在app中添加 *** Kotlin 的butterknife注解处理器
+	kapt 'org.greenrobot:eventbus-annotation-processor:3.0.1' // *** 在app中添加 ***
+	compileOnly 'org.glassfish:javax.annotation:10.0-b28' // *** 在app中添加 ***
+	// Kotlin
+	implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+	implementation "org.jetbrains.anko:anko-common:$anko_version"
+	implementation "org.jetbrains.anko:anko-sqlite:$anko_version"
+	// 友盟
+	implementation 'com.umeng.sdk:common:1.5.3'
+	implementation 'com.umeng.sdk:analytics:7.5.3'
+	// Leakcanary
+	debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'
+
+	// 依据项目情况需自行整合的库
+	// 网络请求
+	implementation 'com.lzy.net:okgo:3.0.4' //可以单独使用，不需要依赖下方的扩展包
+	implementation 'com.lzy.net:okrx2:2.0.2' //RxJava扩展支持，根据需要添加
+	implementation 'com.lzy.net:okserver:2.0.5' //版本号使用 + 可以自动引用最新版
+	implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+	implementation 'com.squareup.okio:okio:2.2.2'
+	// 图片工具glide
+	implementation 'com.github.bumptech.glide:glide:4.12.0'
+	kapt 'com.github.bumptech.glide:compiler:4.12.0'
+	implementation 'com.github.bumptech.glide:okhttp3-integration:4.12.0'
+	// RecyclerView适配器工具
+	implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.6'
+	// RxJava
+	implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
+	implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+}
+
+allprojects {
+	gradle.projectsEvaluated {
+		tasks.withType(JavaCompile) {
+			options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation" << "-Xdiags:verbose"
+		}
+	}
+}
+
