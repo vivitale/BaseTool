@@ -38,7 +38,7 @@
 		android:background="@drawable/bg_white_bottom_c"
 		android:orientation="horizontal">
 
-		<Button
+		<TextView
 			android:id="@+id/cancelButton"
 			style="?android:attr/borderlessButtonStyle"
 			android:layout_width="0dp"
@@ -48,6 +48,7 @@
 			android:background="@drawable/btn_white_bottom_left"
 			android:paddingBottom="@dimen/dp_12"
 			android:paddingTop="@dimen/dp_12"
+			android:textColor="#f74346"
 			android:text="@android:string/cancel"/>
 
 		<!-- The vertical divider line between the two buttons -->
@@ -60,7 +61,7 @@
 			android:layout_marginTop="@dimen/dp_10"
 			android:background="@color/gray_holo_dark"/>
 
-		<Button
+		<TextView
 			android:id="@+id/okButton"
 			style="?android:attr/borderlessButtonStyle"
 			android:layout_width="0dp"

@@ -10,10 +10,7 @@ import com.github.florent37.viewanimator.ViewAnimator
 import io.reactivex.Observer
 import kotlinx.android.synthetic.main.activity_main.*
 import talex.zsw.basecore.model.ActionItem
-import talex.zsw.basecore.util.BroadcastTool
-import talex.zsw.basecore.util.LogTool
-import talex.zsw.basecore.util.PhotoTool
-import talex.zsw.basecore.util.TimeTool
+import talex.zsw.basecore.util.*
 import talex.zsw.basecore.util.glide.GlideTool
 import talex.zsw.basecore.view.dialog.rxdialog.RxDialogChooseImage
 import talex.zsw.basecore.view.dialog.rxdialog.RxDialogList
@@ -128,10 +125,11 @@ class MainActivity : BaseMVPActivity<MainContract.Presenter>(), MainContract.Vie
                         .setInitialDate(Date())
                         .setMinDate(Date())
                         .setMaxDate(Date())
-                        .setThemeColor(Color.parseColor("#00FF00"))
+                        .setThemeColor(Color.parseColor("#FFFF00"))
                         .setTitleColor(Color.parseColor("#FF0000"))
                         .setShowTime(true)
                         .setShowDay(true)
+                        .setWidth((DeviceTool.getScreenWidth(this)*0.85).toInt())
                         .build()
                         .show()
             }

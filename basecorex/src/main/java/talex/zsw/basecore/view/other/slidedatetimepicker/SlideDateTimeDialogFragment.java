@@ -15,7 +15,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
+import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -50,8 +50,8 @@ public class SlideDateTimeDialogFragment extends DialogFragment
 	private SlidingTabLayout mSlidingTabLayout;
 	private View mButtonHorizontalDivider;
 	private View mButtonVerticalDivider;
-	private Button mOkButton;
-	private Button mCancelButton;
+	private TextView mOkButton;
+	private TextView mCancelButton;
 	private Date mInitialDate;
 	private int mTheme;
 	private int mIndicatorColor;
@@ -59,6 +59,7 @@ public class SlideDateTimeDialogFragment extends DialogFragment
 	private boolean mShowDay;
 	private int mThemeColor;
 	private int mTitleColor;
+	private int mWidth;
 	private Date mMinDate;
 	private Date mMaxDate;
 	private boolean mIsClientSpecified24HourTime;
@@ -87,7 +88,7 @@ public class SlideDateTimeDialogFragment extends DialogFragment
 	 * @param indicatorColor
 	 * @return
 	 */
-	public static SlideDateTimeDialogFragment newInstance(SlideDateTimeListener listener, Date initialDate, Date minDate, Date maxDate, boolean isClientSpecified24HourTime, boolean is24HourTime, int theme, int indicatorColor, boolean showTime, boolean showDay, int themeColor, int titleColor)
+	public static SlideDateTimeDialogFragment newInstance(SlideDateTimeListener listener, Date initialDate, Date minDate, Date maxDate, boolean isClientSpecified24HourTime, boolean is24HourTime, int theme, int indicatorColor, boolean showTime, boolean showDay, int themeColor, int titleColor,int width)
 	{
 		mListener = listener;
 
@@ -107,6 +108,7 @@ public class SlideDateTimeDialogFragment extends DialogFragment
 		bundle.putBoolean("showDay", showDay);
 		bundle.putInt("themeColor", themeColor);
 		bundle.putInt("titleColor", titleColor);
+		bundle.putInt("width", width);
 		dialogFragment.setArguments(bundle);
 
 		// Return the fragment with its bundle
@@ -118,7 +120,14 @@ public class SlideDateTimeDialogFragment extends DialogFragment
 		Window dialogWindow = getDialog().getWindow();
 		WindowManager.LayoutParams lp = dialogWindow.getAttributes();
 		dialogWindow.setGravity(Gravity.CENTER);
-		lp.width = lp.WRAP_CONTENT;
+		if(mWidth>0)
+		{
+			lp.width = mWidth;
+		}
+		else
+		{
+			lp.width = lp.WRAP_CONTENT;
+		}
 		lp.height = lp.WRAP_CONTENT;
 		dialogWindow.setAttributes(lp);
 		super.onResume();
@@ -200,6 +209,7 @@ public class SlideDateTimeDialogFragment extends DialogFragment
 		mShowDay = args.getBoolean("showDay");
 		mThemeColor = args.getInt("themeColor");
 		mTitleColor = args.getInt("titleColor");
+		mWidth = args.getInt("width");
 		mTheme = args.getInt("theme");
 		mIndicatorColor = args.getInt("indicatorColor");
 	}
@@ -210,8 +220,8 @@ public class SlideDateTimeDialogFragment extends DialogFragment
 		mSlidingTabLayout = (SlidingTabLayout) v.findViewById(R.id.slidingTabLayout);
 		mButtonHorizontalDivider = v.findViewById(R.id.buttonHorizontalDivider);
 		mButtonVerticalDivider = v.findViewById(R.id.buttonVerticalDivider);
-		mOkButton = (Button) v.findViewById(R.id.okButton);
-		mCancelButton = (Button) v.findViewById(R.id.cancelButton);
+		mOkButton = (TextView) v.findViewById(R.id.okButton);
+		mCancelButton = (TextView) v.findViewById(R.id.cancelButton);
 	}
 
 	private void customizeViews()

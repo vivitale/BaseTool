@@ -1,10 +1,10 @@
 package talex.zsw.basecore.view.other.slidedatetimepicker;
 
+import java.util.Date;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import java.util.Date;
 
 /**
  * <p>This class contains methods for the library client to create
@@ -33,6 +33,7 @@ public class SlideDateTimePicker
 	private int mTitleColor = 0;
 	private int mTheme;
 	private int mIndicatorColor;
+	private int mWidth;
 
 	/**
 	 * Creates a new instance of {@code SlideDateTimePicker}.
@@ -176,6 +177,11 @@ public class SlideDateTimePicker
 		mIndicatorColor = indicatorColor;
 	}
 
+	public void setWidth(int mWidth)
+	{
+		this.mWidth = mWidth;
+	}
+
 	/**
 	 * Shows the dialog to the user. Make sure to call
 	 * before calling this.
@@ -193,7 +199,7 @@ public class SlideDateTimePicker
 		}
 
 		SlideDateTimeDialogFragment dialogFragment
-			= SlideDateTimeDialogFragment.newInstance(mListener, mInitialDate, mMinDate, mMaxDate, mIsClientSpecified24HourTime, mIs24HourTime, mTheme, mIndicatorColor, mShowTime, mShowDay, mThemeColor, mTitleColor);
+			= SlideDateTimeDialogFragment.newInstance(mListener, mInitialDate, mMinDate, mMaxDate, mIsClientSpecified24HourTime, mIs24HourTime, mTheme, mIndicatorColor, mShowTime, mShowDay, mThemeColor, mTitleColor,mWidth);
 
 		dialogFragment.setCancelable(false);
 		dialogFragment.show(mFragmentManager, SlideDateTimeDialogFragment.TAG_SLIDE_DATE_TIME_DIALOG_FRAGMENT);
@@ -220,6 +226,7 @@ public class SlideDateTimePicker
 		private boolean showDay = true;
 		private int themeColor = 0;
 		private int titleColor = 0;
+		private int width = 0;
 		private int indicatorColor;
 
 		public Builder(FragmentManager fm)
@@ -297,6 +304,12 @@ public class SlideDateTimePicker
 			return this;
 		}
 
+		public Builder setWidth(int width)
+		{
+			this.width = width;
+			return this;
+		}
+
 		/**
 		 * @see SlideDateTimePicker#setTheme(int)
 		 */
@@ -339,6 +352,7 @@ public class SlideDateTimePicker
 			picker.setShowDay(showDay);
 			picker.setThemeColor(themeColor);
 			picker.setTitleColor(titleColor);
+			picker.setWidth(width);
 
 			return picker;
 		}
