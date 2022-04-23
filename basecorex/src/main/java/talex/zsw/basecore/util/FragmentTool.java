@@ -45,7 +45,7 @@ public class FragmentTool
 		FragmentManager fragmentManager = fragmentActivity.getSupportFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 		fragmentTransaction.replace(id, fragment);
-		fragmentTransaction.commit();
+		fragmentTransaction.commitAllowingStateLoss();
 	}
 
 	/**
@@ -63,7 +63,7 @@ public class FragmentTool
 		android.app.FragmentManager fragmentManager = activity.getFragmentManager();
 		android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 		fragmentTransaction.replace(id, fragment);
-		fragmentTransaction.commit();
+		fragmentTransaction.commitAllowingStateLoss();
 	}
 
 	//==============================================================================================Fragment的动态使用 start

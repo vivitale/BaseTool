@@ -8,6 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
+import talex.zsw.basecore.interfaces.OnSimpleListener;
+
 /**
  * 作用：倒计时器
  * 作者：tale email:vvtale@gmail.com
@@ -20,7 +22,7 @@ public class Anticlockwise extends Chronometer
 {
 	private long mTime;
 	private long mNextTime;
-	private OnTimeCompleteListener mListener;
+	private OnSimpleListener mListener;
 	private SimpleDateFormat mTimeFormat;
 
 	public Anticlockwise(Context context)
@@ -87,7 +89,7 @@ public class Anticlockwise extends Chronometer
 		mTimeFormat.setTimeZone(TimeZone.getTimeZone("GMT+0"));
 	}
 
-	public void setOnTimeCompleteListener(OnTimeCompleteListener l)
+	public void setOnTimeCompleteListener(OnSimpleListener l)
 	{
 		mListener = l;
 	}
@@ -103,7 +105,7 @@ public class Anticlockwise extends Chronometer
 					Anticlockwise.this.stop();
 					if(null != mListener)
 					{
-						mListener.onTimeComplete();
+						mListener.doSomething();
 					}
 				}
 				mNextTime = 0;
@@ -140,10 +142,5 @@ public class Anticlockwise extends Chronometer
 	private void updateTimeText()
 	{
 		this.setText(mTimeFormat.format(new Date(mNextTime*1000)));
-	}
-
-	interface OnTimeCompleteListener
-	{
-		void onTimeComplete();
 	}
 }

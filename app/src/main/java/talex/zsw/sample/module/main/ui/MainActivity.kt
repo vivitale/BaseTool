@@ -22,6 +22,7 @@ import talex.zsw.basecore.view.recyleview.SampleFooter
 import talex.zsw.basecore.view.recyleview.SampleHeader
 import talex.zsw.sample.R
 import talex.zsw.sample.base.BaseMVPActivity
+import talex.zsw.sample.module.common.ui.ServerActivity
 import talex.zsw.sample.module.common.ui.WebActivity
 import talex.zsw.sample.module.main.adapter.TestAdapter
 import talex.zsw.sample.module.main.contract.MainContract
@@ -107,6 +108,8 @@ class MainActivity : BaseMVPActivity<MainContract.Presenter>(), MainContract.Vie
                         .rotation(0f,360f)
                         .duration(3*1000)
                         .start()
+
+                start(ServerActivity::class.java)
             }
             R.id.mBtn2 ->
             {

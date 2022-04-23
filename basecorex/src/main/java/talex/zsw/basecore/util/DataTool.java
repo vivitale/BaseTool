@@ -95,7 +95,7 @@ public class DataTool
 	{
 		if(cardNo == null || cardNo.length() < 8)
 		{
-			return "银行卡号有误";
+			return getNotNull(cardNo);
 		}
 		String card = "";
 		card = cardNo.substring(0, 4)+" **** **** ";
@@ -114,7 +114,7 @@ public class DataTool
 	{
 		if(certNo == null || certNo.length() < 15)
 		{
-			return "无效身份证号";
+			return getNotNull(certNo);
 		}
 		String card = "";
 		card = certNo.substring(0, certNo.length()-8)+"****";
@@ -133,7 +133,7 @@ public class DataTool
 	{
 		if(name == null || name.length() < 1)
 		{
-			return "无姓名";
+			return getNotNull(name);
 		}
 		String card = "";
 		card = name.substring(0, name.length()-1)+"*";
@@ -166,7 +166,7 @@ public class DataTool
 	{
 		if(cardNo == null || cardNo.length() < 8)
 		{
-			return "银行卡号有误";
+			return getNotNull(cardNo);
 		}
 		String card = "";
 		card += cardNo.substring(cardNo.length()-4);

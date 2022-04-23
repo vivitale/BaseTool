@@ -1,5 +1,6 @@
 package talex.zsw.basecore.view.other.slidedatetimepicker;
 
+import java.lang.ref.WeakReference;
 import java.util.Date;
 
 import androidx.fragment.app.Fragment;
@@ -34,6 +35,7 @@ public class SlideDateTimePicker
 	private int mTheme;
 	private int mIndicatorColor;
 	private int mWidth;
+	private WeakReference<SlideDateTimeDialogFragment> dfw;
 
 	/**
 	 * Creates a new instance of {@code SlideDateTimePicker}.
@@ -45,13 +47,14 @@ public class SlideDateTimePicker
 	{
 		// See if there are any DialogFragments from the FragmentManager
 		FragmentTransaction ft = fm.beginTransaction();
-		Fragment prev = fm.findFragmentByTag(SlideDateTimeDialogFragment.TAG_SLIDE_DATE_TIME_DIALOG_FRAGMENT);
+		Fragment prev
+			= fm.findFragmentByTag(SlideDateTimeDialogFragment.TAG_SLIDE_DATE_TIME_DIALOG_FRAGMENT);
 
 		// Remove if found
 		if(prev != null)
 		{
 			ft.remove(prev);
-			ft.commit();
+			ft.commitAllowingStateLoss();
 		}
 
 		mFragmentManager = fm;
@@ -188,21 +191,27 @@ public class SlideDateTimePicker
 	 */
 	public void show()
 	{
-		if(mListener == null)
-		{
-			throw new NullPointerException("Attempting to bind null listener to SlideDateTimePicker");
-		}
-
 		if(mInitialDate == null)
 		{
 			setInitialDate(new Date());
 		}
 
-		SlideDateTimeDialogFragment dialogFragment
-			= SlideDateTimeDialogFragment.newInstance(mListener, mInitialDate, mMinDate, mMaxDate, mIsClientSpecified24HourTime, mIs24HourTime, mTheme, mIndicatorColor, mShowTime, mShowDay, mThemeColor, mTitleColor,mWidth);
+		dfw
+			= new WeakReference<>(SlideDateTimeDialogFragment.newInstance(mListener, mInitialDate, mMinDate, mMaxDate, mIsClientSpecified24HourTime, mIs24HourTime, mTheme, mIndicatorColor, mShowTime, mShowDay, mThemeColor, mTitleColor, mWidth));
 
-		dialogFragment.setCancelable(false);
-		dialogFragment.show(mFragmentManager, SlideDateTimeDialogFragment.TAG_SLIDE_DATE_TIME_DIALOG_FRAGMENT);
+
+		dfw.get().setCancelable(false);
+		dfw
+			.get()
+			.showDialog(mFragmentManager);
+	}
+
+	public void dismiss()
+	{
+		if(dfw!=null && dfw.get()!=null)
+		{
+			dfw.get().dismissDialog();
+		}
 	}
 
 	/*

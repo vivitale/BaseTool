@@ -26,6 +26,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import talex.zsw.basecore.R;
+import talex.zsw.basecore.view.dialog.fragment.NoLeakDialogFragment;
 
 /**
  * <p>The {@code DialogFragment} that contains the {@link SlidingTabLayout}
@@ -37,10 +38,11 @@ import talex.zsw.basecore.R;
  *
  * @author jjobes
  */
-public class SlideDateTimeDialogFragment extends DialogFragment
+public class SlideDateTimeDialogFragment extends NoLeakDialogFragment
 	implements DateFragment.DateChangedListener, TimeFragment.TimeChangedListener
 {
-	public static final String TAG_SLIDE_DATE_TIME_DIALOG_FRAGMENT = "tagSlideDateTimeDialogFragment";
+	public static final String TAG_SLIDE_DATE_TIME_DIALOG_FRAGMENT
+		= "tagSlideDateTimeDialogFragment";
 
 	private static SlideDateTimeListener mListener;
 
@@ -52,6 +54,8 @@ public class SlideDateTimeDialogFragment extends DialogFragment
 	private View mButtonVerticalDivider;
 	private TextView mOkButton;
 	private TextView mCancelButton;
+
+
 	private Date mInitialDate;
 	private int mTheme;
 	private int mIndicatorColor;
@@ -65,7 +69,8 @@ public class SlideDateTimeDialogFragment extends DialogFragment
 	private boolean mIsClientSpecified24HourTime;
 	private boolean mIs24HourTime;
 	private Calendar mCalendar;
-	private int mDateFlags = DateUtils.FORMAT_SHOW_WEEKDAY | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL;
+	private int mDateFlags = DateUtils.FORMAT_SHOW_WEEKDAY | DateUtils.FORMAT_SHOW_DATE |
+		DateUtils.FORMAT_ABBREV_ALL;
 
 	public SlideDateTimeDialogFragment()
 	{
@@ -88,7 +93,7 @@ public class SlideDateTimeDialogFragment extends DialogFragment
 	 * @param indicatorColor
 	 * @return
 	 */
-	public static SlideDateTimeDialogFragment newInstance(SlideDateTimeListener listener, Date initialDate, Date minDate, Date maxDate, boolean isClientSpecified24HourTime, boolean is24HourTime, int theme, int indicatorColor, boolean showTime, boolean showDay, int themeColor, int titleColor,int width)
+	public static SlideDateTimeDialogFragment newInstance(SlideDateTimeListener listener, Date initialDate, Date minDate, Date maxDate, boolean isClientSpecified24HourTime, boolean is24HourTime, int theme, int indicatorColor, boolean showTime, boolean showDay, int themeColor, int titleColor, int width)
 	{
 		mListener = listener;
 
@@ -120,7 +125,7 @@ public class SlideDateTimeDialogFragment extends DialogFragment
 		Window dialogWindow = getDialog().getWindow();
 		WindowManager.LayoutParams lp = dialogWindow.getAttributes();
 		dialogWindow.setGravity(Gravity.CENTER);
-		if(mWidth>0)
+		if(mWidth > 0)
 		{
 			lp.width = mWidth;
 		}
@@ -168,9 +173,16 @@ public class SlideDateTimeDialogFragment extends DialogFragment
 				         //					android.R.style.Theme_Holo_Light_Dialog_NoActionBar
 				         R.style.DialogStyle);
 		}
+
+		if(getDialog() != null)
+		{
+			getDialog().setOnCancelListener(null);
+			getDialog().setOnDismissListener(null);
+		}
 	}
 
-	@Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		View view = inflater.inflate(R.layout.slide_date_time_picker, container);
 
@@ -188,11 +200,15 @@ public class SlideDateTimeDialogFragment extends DialogFragment
 		// Workaround for a bug in the compatibility library where calling
 		// setRetainInstance(true) does not retain the instance across
 		// orientation changes.
-		if(getDialog() != null && getRetainInstance())
+		if(getDialog() != null)
 		{
-			getDialog().setDismissMessage(null);
+			if(getRetainInstance())
+			{
+				getDialog().setDismissMessage(null);
+			}
+			getDialog().setOnCancelListener(null);
+			getDialog().setOnDismissListener(null);
 		}
-
 		super.onDestroyView();
 	}
 
@@ -226,7 +242,8 @@ public class SlideDateTimeDialogFragment extends DialogFragment
 
 	private void customizeViews()
 	{
-		int lineColor = mTheme == SlideDateTimePicker.HOLO_DARK ? getResources().getColor(R.color.gray_holo_dark) :
+		int lineColor = mTheme == SlideDateTimePicker.HOLO_DARK ?
+			getResources().getColor(R.color.gray_holo_dark) :
 			getResources().getColor(R.color.gray_holo_light);
 
 		// Set the colors of the horizontal and vertical lines for the
@@ -240,14 +257,16 @@ public class SlideDateTimeDialogFragment extends DialogFragment
 				break;
 
 			default:  // if no theme was specified, default to holo light
-				mButtonHorizontalDivider.setBackgroundColor(getResources().getColor(R.color.gray_holo_light));
-				mButtonVerticalDivider.setBackgroundColor(getResources().getColor(R.color.gray_holo_light));
+				mButtonHorizontalDivider.setBackgroundColor(getResources()
+					                                            .getColor(R.color.gray_holo_light));
+				mButtonVerticalDivider.setBackgroundColor(getResources()
+					                                          .getColor(R.color.gray_holo_light));
 		}
 
 		// Set the color of the selected tab underline if one was specified.
 		if(mIndicatorColor != 0)
 		{
-			 mSlidingTabLayout.setSelectedIndicatorColors(mIndicatorColor);
+			mSlidingTabLayout.setSelectedIndicatorColors(mIndicatorColor);
 		}
 		mSlidingTabLayout.setDividerColors(Color.WHITE);
 	}
@@ -290,7 +309,7 @@ public class SlideDateTimeDialogFragment extends DialogFragment
 
 				mListener.onDateTimeSet(new Date(mCalendar.getTimeInMillis()));
 
-				dismiss();
+				dismissDialog();
 			}
 		});
 
@@ -306,7 +325,7 @@ public class SlideDateTimeDialogFragment extends DialogFragment
 
 				mListener.onDateTimeCancel();
 
-				dismiss();
+				dismissDialog();
 			}
 		});
 	}
@@ -384,7 +403,9 @@ public class SlideDateTimeDialogFragment extends DialogFragment
 			}
 			else  // display time using the device's default 12/24 hour format preference
 			{
-				mSlidingTabLayout.setTabText(1, DateFormat.getTimeFormat(mContext).format(mCalendar.getTimeInMillis()));
+				mSlidingTabLayout.setTabText(1, DateFormat
+					.getTimeFormat(mContext)
+					.format(mCalendar.getTimeInMillis()));
 			}
 		}
 	}
@@ -420,13 +441,15 @@ public class SlideDateTimeDialogFragment extends DialogFragment
 			switch(position)
 			{
 				case 0:
-					DateFragment dateFragment = DateFragment.newInstance(mTheme, mCalendar.get(Calendar.YEAR), mCalendar
-						.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH), mMinDate, mMaxDate, mThemeColor,mShowDay);
+					DateFragment dateFragment
+						= DateFragment.newInstance(mTheme, mCalendar.get(Calendar.YEAR), mCalendar.get(Calendar.MONTH), mCalendar
+						.get(Calendar.DAY_OF_MONTH), mMinDate, mMaxDate, mThemeColor, mShowDay);
 					// dateFragment.setTargetFragment(SlideDateTimeDialogFragment.this, 100);
 					return dateFragment;
 				case 1:
 					TimeFragment timeFragment
-						= TimeFragment.newInstance(mTheme, mCalendar.get(Calendar.HOUR_OF_DAY), mCalendar.get(Calendar.MINUTE), mIsClientSpecified24HourTime, mIs24HourTime, mThemeColor);
+						= TimeFragment.newInstance(mTheme, mCalendar.get(Calendar.HOUR_OF_DAY), mCalendar
+						.get(Calendar.MINUTE), mIsClientSpecified24HourTime, mIs24HourTime, mThemeColor);
 					// timeFragment.setTargetFragment(SlideDateTimeDialogFragment.this, 200);
 					return timeFragment;
 				default:
@@ -444,6 +467,47 @@ public class SlideDateTimeDialogFragment extends DialogFragment
 			{
 				return 1;
 			}
+		}
+	}
+
+	// --------------- 新的显示隐藏方法 ---------------
+
+	private FragmentManager fm;
+	private String className = "SlideDateTimeDialogFragment";
+
+	public void showDialog(FragmentManager fragmentManager)
+	{
+		try
+		{
+			fm = fragmentManager;
+			fragmentManager.beginTransaction().remove(this).commitAllowingStateLoss();
+			this.show(fragmentManager, className);
+		}
+		catch(Exception e)
+		{
+			fm = null;
+			e.printStackTrace();
+		}
+	}
+
+	public void dismissDialog()
+	{
+		if(fm != null)
+		{
+			Fragment prev = fm.findFragmentByTag(className);
+			if(prev != null)
+			{
+				((DialogFragment) prev).dismissAllowingStateLoss();
+			}
+			else
+			{
+				dismissAllowingStateLoss();
+			}
+			fm.beginTransaction().remove(this).commitAllowingStateLoss();
+		}
+		else
+		{
+			dismissAllowingStateLoss();
 		}
 	}
 }

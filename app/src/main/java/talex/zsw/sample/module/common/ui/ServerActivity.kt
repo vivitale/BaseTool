@@ -7,14 +7,18 @@ import android.content.ServiceConnection
 import android.os.IBinder
 import kotlinx.android.synthetic.main.activity_server.*
 import talex.zsw.basecore.service.PingService
+import talex.zsw.basecore.util.ColorTool
 import talex.zsw.basecore.util.LogTool
 import talex.zsw.basecore.util.NetPingTool
+import talex.zsw.basecore.view.other.slidedatetimepicker.SlideDateTimeListener
+import talex.zsw.basecore.view.other.slidedatetimepicker.SlideDateTimePicker
 import talex.zsw.sample.R
 import talex.zsw.sample.base.BaseMVPActivity
 import talex.zsw.sample.entitys.BaseResponse
 import talex.zsw.sample.mvp.CommonPresenter
 import talex.zsw.sample.mvp.CommonView
 import talex.zsw.sample.util.LogUtils
+import java.util.*
 
 /**
  * 作者: 赵小白 email:vvtale@gmail.com  
@@ -41,13 +45,33 @@ class ServerActivity : BaseMVPActivity<CommonView.Presenter>(), CommonView.View
 
     override fun initData()
     {
-        bindPingService()
+        // bindPingService()
+        showDataTimePicker()
+    }
+
+    private fun showDataTimePicker()
+    {
+        SlideDateTimePicker.Builder(supportFragmentManager)
+            .setListener(object : SlideDateTimeListener()
+                         {
+                             override fun onDateTimeSet(date: Date)
+                             {
+                             }
+                         })
+            .setInitialDate(Date())
+            .setMinDate(Date())
+            .setMaxDate(Date())
+            .setThemeColor(ColorTool.getColorById(R.color.colorPrimary))
+            .setTitleColor(ColorTool.getColorById(R.color.white))
+            .setShowTime(true)
+            .setShowDay(true)
+            .build().show()
     }
 
     override fun onDestroy()
     {
         super.onDestroy()
-        unBindPingService()
+        // unBindPingService()
     }
 
     private fun showInfo()

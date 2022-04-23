@@ -121,7 +121,8 @@ public class ActivityTool
 		try
 		{
 			finishAllActivity();
-			ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+			ActivityManager activityManager
+				= (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
 			activityManager.restartPackage(context.getPackageName());
 			System.exit(0);
 		}
@@ -346,4 +347,45 @@ public class ActivityTool
 		return "no "+packageName;
 	}
 
+	/** 重启App */
+	public static void restartApp(Activity context)
+	{
+		final Intent intent = context
+			.getPackageManager()
+			.getLaunchIntentForPackage(context.getPackageName());
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		context.startActivity(intent);
+
+		KeyboardTool.hideSoftInput(context);
+
+		//杀掉以前进程
+		android.os.Process.killProcess(android.os.Process.myPid());
+	}
+
+	/** 重启App */
+	public static void restartApp(Context context)
+	{
+		final Intent intent = context
+			.getPackageManager()
+			.getLaunchIntentForPackage(context.getPackageName());
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		context.startActivity(intent);
+
+		//杀掉以前进程
+		android.os.Process.killProcess(android.os.Process.myPid());
+	}
+
+	/** 重启App */
+	public static void restartApp()
+	{
+		final Intent intent = Tool
+			.getContext()
+			.getPackageManager()
+			.getLaunchIntentForPackage(Tool.getContext().getPackageName());
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		Tool.getContext().startActivity(intent);
+
+		//杀掉以前进程
+		android.os.Process.killProcess(android.os.Process.myPid());
+	}
 }
