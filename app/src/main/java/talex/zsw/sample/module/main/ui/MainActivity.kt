@@ -14,6 +14,7 @@ import talex.zsw.basecore.util.*
 import talex.zsw.basecore.util.glide.GlideTool
 import talex.zsw.basecore.view.dialog.rxdialog.RxDialogChooseImage
 import talex.zsw.basecore.view.dialog.rxdialog.RxDialogList
+import talex.zsw.basecore.view.other.RxToast
 import talex.zsw.basecore.view.other.slidedatetimepicker.SlideDateTimeListener
 import talex.zsw.basecore.view.other.slidedatetimepicker.SlideDateTimePicker
 import talex.zsw.basecore.view.popupwindow.PopLayout
@@ -148,7 +149,11 @@ class MainActivity : BaseMVPActivity<MainContract.Presenter>(), MainContract.Vie
             }
             R.id.mBtn5 ->
             {
-                Integer.parseInt("abc")
+                // Integer.parseInt("abc")
+                RxToast.normal("normal")
+                RxToast.info("info")
+                RxToast.success("success")
+                RxToast.error("error")
             }
             R.id.mBtn6 ->
             {

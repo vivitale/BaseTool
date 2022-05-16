@@ -209,7 +209,14 @@ public class SlideDateTimeDialogFragment extends NoLeakDialogFragment
 			getDialog().setOnCancelListener(null);
 			getDialog().setOnDismissListener(null);
 		}
+		mListener = null;
 		super.onDestroyView();
+	}
+
+	@Override public void onDestroy()
+	{
+		mListener = null;
+		super.onDestroy();
 	}
 
 	private void unpackBundle()
@@ -302,13 +309,10 @@ public class SlideDateTimeDialogFragment extends NoLeakDialogFragment
 
 			@Override public void onClick(View v)
 			{
-				if(mListener == null)
+				if(mListener != null)
 				{
-					throw new NullPointerException("Listener no longer exists for mOkButton");
+					mListener.onDateTimeSet(new Date(mCalendar.getTimeInMillis()));
 				}
-
-				mListener.onDateTimeSet(new Date(mCalendar.getTimeInMillis()));
-
 				dismissDialog();
 			}
 		});
@@ -318,12 +322,10 @@ public class SlideDateTimeDialogFragment extends NoLeakDialogFragment
 
 			@Override public void onClick(View v)
 			{
-				if(mListener == null)
+				if(mListener != null)
 				{
-					throw new NullPointerException("Listener no longer exists for mCancelButton");
+					mListener.onDateTimeCancel();
 				}
-
-				mListener.onDateTimeCancel();
 
 				dismissDialog();
 			}
@@ -421,12 +423,10 @@ public class SlideDateTimeDialogFragment extends NoLeakDialogFragment
 	{
 		super.onCancel(dialog);
 
-		if(mListener == null)
+		if(mListener != null)
 		{
-			throw new NullPointerException("Listener no longer exists in onCancel()");
+			mListener.onDateTimeCancel();
 		}
-
-		mListener.onDateTimeCancel();
 	}
 
 	private class ViewPagerAdapter extends FragmentPagerAdapter
