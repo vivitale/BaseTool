@@ -300,51 +300,91 @@ public final class LogTool
 
 	public static void nv(String contents)
 	{
+		if(!CONFIG.mLogSwitch || (!CONFIG.mLog2ConsoleSwitch && !CONFIG.mLog2FileSwitch))
+		{
+			return;
+		}
 		Log.v(CONFIG.mGlobalTag, DataTool.getNotNull(contents));
 	}
 
 	public static void ni(String contents)
 	{
+		if(!CONFIG.mLogSwitch || (!CONFIG.mLog2ConsoleSwitch && !CONFIG.mLog2FileSwitch))
+		{
+			return;
+		}
 		Log.i(CONFIG.mGlobalTag, DataTool.getNotNull(contents));
 	}
 
 	public static void nd(String contents)
 	{
+		if(!CONFIG.mLogSwitch || (!CONFIG.mLog2ConsoleSwitch && !CONFIG.mLog2FileSwitch))
+		{
+			return;
+		}
 		Log.d(CONFIG.mGlobalTag, DataTool.getNotNull(contents));
 	}
 
 	public static void nw(String contents)
 	{
+		if(!CONFIG.mLogSwitch || (!CONFIG.mLog2ConsoleSwitch && !CONFIG.mLog2FileSwitch))
+		{
+			return;
+		}
 		Log.w(CONFIG.mGlobalTag, DataTool.getNotNull(contents));
 	}
 
 	public static void ne(String contents)
 	{
+		if(!CONFIG.mLogSwitch || (!CONFIG.mLog2ConsoleSwitch && !CONFIG.mLog2FileSwitch))
+		{
+			return;
+		}
 		Log.e(CONFIG.mGlobalTag, DataTool.getNotNull(contents));
 	}
 
 	public static void nv(String tag, String contents)
 	{
+		if(!CONFIG.mLogSwitch || (!CONFIG.mLog2ConsoleSwitch && !CONFIG.mLog2FileSwitch))
+		{
+			return;
+		}
 		Log.v(tag, DataTool.getNotNull(contents));
 	}
 
 	public static void ni(String tag, String contents)
 	{
+		if(!CONFIG.mLogSwitch || (!CONFIG.mLog2ConsoleSwitch && !CONFIG.mLog2FileSwitch))
+		{
+			return;
+		}
 		Log.i(tag, DataTool.getNotNull(contents));
 	}
 
 	public static void nd(String tag, String contents)
 	{
+		if(!CONFIG.mLogSwitch || (!CONFIG.mLog2ConsoleSwitch && !CONFIG.mLog2FileSwitch))
+		{
+			return;
+		}
 		Log.d(tag, DataTool.getNotNull(contents));
 	}
 
 	public static void nw(String tag, String contents)
 	{
+		if(!CONFIG.mLogSwitch || (!CONFIG.mLog2ConsoleSwitch && !CONFIG.mLog2FileSwitch))
+		{
+			return;
+		}
 		Log.w(tag, DataTool.getNotNull(contents));
 	}
 
 	public static void ne(String tag, String contents)
 	{
+		if(!CONFIG.mLogSwitch || (!CONFIG.mLog2ConsoleSwitch && !CONFIG.mLog2FileSwitch))
+		{
+			return;
+		}
 		Log.e(tag, DataTool.getNotNull(contents));
 	}
 
