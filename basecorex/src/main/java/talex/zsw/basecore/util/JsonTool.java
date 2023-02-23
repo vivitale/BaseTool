@@ -37,7 +37,7 @@ import java.util.TreeMap;
  */
 public class JsonTool
 {
-	private static Gson getGson()
+	public static Gson getGson()
 	{
 		GsonBuilder gb = new GsonBuilder();
 		gb.setLenient();
@@ -166,6 +166,39 @@ public class JsonTool
 			string = "";
 		}
 		return gson.fromJson(string, token.getType());
+	}
+
+	/**
+	 * 将object解析成指定泛型并返回
+	 *
+	 * @param obj   json数据的object
+	 * @param type  解析类型type
+	 */
+	public static Object getObject(Object obj, Type type)
+	{
+		Gson gson = getGson();
+		String data = gson.toJson(obj);
+		if(RegTool.isNullString(data))
+		{
+			data = "";
+		}
+		return gson.fromJson(data, type);
+	}
+
+	/**
+	 * 将object解析成指定泛型并返回
+	 *
+	 * @param string json数据
+	 * @param type   解析类型type
+	 */
+	public static Object getObject(String string, Type type)
+	{
+		Gson gson = getGson();
+		if(RegTool.isNullString(string))
+		{
+			string = "";
+		}
+		return gson.fromJson(string, type);
 	}
 
 	/**
